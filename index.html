@@ -5,29 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eric Cestari - Architecte Cloud Senior</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#1e3a8a',
+                        'secondary': '#059669',
+                        'accent': '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-100 font-sans">
-    <header class="bg-blue-600 text-white py-6">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold">Eric Cestari</h1>
-            <p class="text-xl mt-2">Architecte Cloud Senior & Développeur Full Stack</p>
+    <header class="bg-primary text-white py-6">
+        <div class="container mx-auto px-4 flex items-center">
+            <img src="/logo-evo.png" alt="Logo" class="w-16 h-16 mr-4" />
+            <div>
+                <h1 class="text-4xl font-bold">Eric Cestari</h1>
+                <p class="text-xl mt-2">Architecte Cloud Senior & Développeur Full Stack</p>
+            </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
         <section class="mb-12">
-            <h2 class="text-2xl font-semibold mb-4">À propos</h2>
+            <h2 class="text-2xl font-semibold mb-4 text-primary">À propos de moi</h2>
             <p class="text-gray-700">
                 Depuis 2000, je développe des applications web et distribuées, en apportant mon expertise à chaque étape du cycle de vie d'un service. Ma passion est de résoudre des problèmes complexes avec des solutions élégantes et pragmatiques dans des environnements technologiques variés.
             </p>
         </section>
 
         <section class="mb-12">
-            <h2 class="text-2xl font-semibold mb-4">Compétences et Réalisations</h2>
+            <h2 class="text-2xl font-semibold mb-4 text-primary">Compétences et Réalisations</h2>
             
             <div class="space-y-6">
                 <div>
-                    <h3 class="text-xl font-medium">Architecture Cloud et DevOps</h3>
+                    <h3 class="text-xl font-medium text-secondary">Architecture Cloud et DevOps</h3>
                     <ul class="list-disc list-inside text-gray-700 mt-2">
                         <li>Conception et mise en œuvre d'architectures sur AWS, GCP, et Azure</li>
                         <li>Développement de solutions serverless et orchestration Kubernetes</li>
@@ -35,41 +51,50 @@
                         <li>Exemple : Mise en place d'une infrastructure CI/CD pour un système d'appels d'urgence à haute disponibilité</li>
                     </ul>
                 </div>
-              <div>
-                    <h3 class="text-xl font-medium">Innovation EdTech</h3>
+                
+                <div>
+                    <h3 class="text-xl font-medium text-secondary">Développement Full Stack</h3>
                     <ul class="list-disc list-inside text-gray-700 mt-2">
-                        <li>Conception de solutions pour le secteur de l'éducation</li>
-                        <li>Développement de fédérateurs d'identité et d'entrepôts de données</li>
-                        <li>Exemple : Création d'un fédérateur d'identité pour l'éducation</li>
+                        <li>Création d'applications web et mobiles performantes</li>
+                        <li>Expertise en langages et frameworks modernes (JavaScript, Python, React, etc.)</li>
+                        <li>Optimisation pour le trafic élevé et la faible latence</li>
+                        <li>Exemple : Développement d'un service de streaming vidéo sécurisé avec fort niveau de confidentialité</li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 class="text-xl font-medium">Leadership Technique</h3>
+                    <h3 class="text-xl font-medium text-secondary">Innovation EdTech</h3>
+                    <ul class="list-disc list-inside text-gray-700 mt-2">
+                        <li>Conception de solutions pour le secteur de l'éducation</li>
+                        <li>Développement de fédérateurs d'identité et d'entrepôts de données</li>
+                        <li>Exemple : Création de ProxyNinja, un fédérateur d'identité pour l'éducation</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-medium text-secondary">Leadership Technique</h3>
                     <ul class="list-disc list-inside text-gray-700 mt-2">
                         <li>Animation d'équipes de développement</li>
                         <li>Conduite de tech designs et maintien à l'état de l'art</li>
                         <li>Formation et mentorat (AWS, Cloud Credentials Council)</li>
-                        <li>Exemple : Animation de meetups et formations cerfifiantes sur les technologies cloud</li>
+                        <li>Exemple : Animation de meetups et conférences internationales sur les technologies cloud</li>
                     </ul>
                 </div>
-                
-                
             </div>
         </section>
 
         <section>
-            <h2 class="text-2xl font-semibold mb-4">Collaborons ensemble</h2>
+            <h2 class="text-2xl font-semibold mb-4 text-primary">Collaborons ensemble</h2>
             <p class="text-gray-700 mb-4">
                 Que vous ayez besoin d'expertise en architecture cloud, de développement d'applications innovantes, ou de leadership technique pour votre équipe, je suis prêt à relever de nouveaux défis. Contactez-moi pour discuter de votre projet et explorer comment je peux contribuer à son succès.
             </p>
-            <a href="mailto:eric@escapevelocity.fr" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+            <a href="mailto:eric@escapevelocity.fr" class="bg-accent text-white py-2 px-4 rounded hover:bg-accent-dark transition duration-300">
                 Contactez-moi
             </a>
         </section>
     </main>
 
-    <footer class="bg-gray-800 text-white py-4 mt-12">
+    <footer class="bg-primary text-white py-4 mt-12">
         <div class="container mx-auto px-4 text-center">
             <p>&copy; 2024 Eric Cestari. Tous droits réservés.</p>
         </div>
