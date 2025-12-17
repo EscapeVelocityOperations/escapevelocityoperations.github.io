@@ -681,9 +681,20 @@
                             this.y = Math.random() * height;
                         }
 
-                        // Direction: toward center area with some randomness
-                        const targetX = centerX + (Math.random() - 0.5) * width * 0.6;
-                        const targetY = centerY + (Math.random() - 0.5) * height * 0.4;
+                        // Direction: aim to PASS BY the photo, not through it
+                        // Offset target to the side of the photo
+                        const passDistance = photoRadius * 2 + Math.random() * photoRadius * 2;  // Pass 2-4 radii away
+                        const side = Math.random() < 0.5 ? 1 : -1;  // Left or right of photo
+
+                        // Calculate perpendicular offset from direct path
+                        const directDx = centerX - this.x;
+                        const directDy = centerY - this.y;
+                        const directAngle = Math.atan2(directDy, directDx);
+                        const perpAngle = directAngle + (Math.PI / 2) * side;
+
+                        // Target is offset perpendicular to direct line
+                        const targetX = centerX + Math.cos(perpAngle) * passDistance;
+                        const targetY = centerY + Math.sin(perpAngle) * passDistance;
                         const dx = targetX - this.x;
                         const dy = targetY - this.y;
                         const angle = Math.atan2(dy, dx);
