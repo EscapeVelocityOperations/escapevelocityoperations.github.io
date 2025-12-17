@@ -789,12 +789,19 @@
                         }
                     }
 
-                    // Reset if too old or too far outside viewport
-                    const maxDist = Math.max(width, height) * 1.2;
-                    if (this.age > this.maxAge || dist > maxDist ||
-                        this.x < -100 || this.x > width + 100 ||
-                        this.y < -100 || this.y > height + 100) {
-                        this.reset();
+                    // Reset conditions
+                    if (this.isComet) {
+                        // Comets: only reset when they exit the screen
+                        if (this.x < -150 || this.x > width + 150 ||
+                            this.y < -150 || this.y > height + 150) {
+                            this.reset();
+                        }
+                    } else {
+                        // Orbiting particles: reset on age or distance
+                        const maxDist = Math.max(width, height) * 1.2;
+                        if (this.age > this.maxAge || dist > maxDist) {
+                            this.reset();
+                        }
                     }
                 }
 
