@@ -781,10 +781,12 @@
 
                     this.age++;
 
-                    // Fade out near end of life
-                    const fadeStart = this.maxAge * 0.7;
-                    if (this.age > fadeStart) {
-                        this.opacity = 1 - (this.age - fadeStart) / (this.maxAge - fadeStart);
+                    // Fade out near end of life (only for orbiting particles, not comets)
+                    if (!this.isComet) {
+                        const fadeStart = this.maxAge * 0.7;
+                        if (this.age > fadeStart) {
+                            this.opacity = 1 - (this.age - fadeStart) / (this.maxAge - fadeStart);
+                        }
                     }
 
                     // Reset if too old or too far outside viewport
