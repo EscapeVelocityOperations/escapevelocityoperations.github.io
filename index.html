@@ -81,8 +81,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="min-h-screen flex items-center pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
-        <div class="container mx-auto px-4 py-16">
+    <header id="hero" class="relative min-h-screen flex items-center pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 overflow-hidden">
+        <!-- Full-screen physics canvas -->
+        <canvas id="gravity-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+        <div class="container mx-auto px-4 py-16 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="fade-in">
                     <p class="text-indigo-400 font-medium mb-4">Escape Velocity Operations</p>
@@ -103,14 +106,9 @@
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <div class="relative w-80 h-80 md:w-[450px] md:h-[450px]">
-                        <!-- Physics-based gravity simulation canvas -->
-                        <canvas id="gravity-canvas" class="absolute inset-0 w-full h-full" style="overflow: visible;"></canvas>
-
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="absolute w-72 h-72 md:w-80 md:h-80 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-3xl opacity-20"></div>
-                            <img src="/profil.jpeg" alt="Eric Cestari" class="relative w-56 h-56 md:w-64 md:h-64 rounded-full object-cover border-4 border-indigo-500/30 shadow-2xl z-10">
-                        </div>
+                    <div id="photo-container" class="relative">
+                        <div class="absolute w-72 h-72 md:w-80 md:h-80 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2"></div>
+                        <img id="profile-photo" src="/profil.jpeg" alt="Eric Cestari" class="relative w-56 h-56 md:w-64 md:h-64 rounded-full object-cover border-4 border-indigo-500/30 shadow-2xl">
                     </div>
                 </div>
             </div>
@@ -585,42 +583,56 @@
 
         // ==========================================
         // Newton's Law of Gravitation Simulation
+        // Particles launch FROM profile photo, use entire hero
         // ==========================================
         (function() {
             const canvas = document.getElementById('gravity-canvas');
-            if (!canvas) return;
+            const hero = document.getElementById('hero');
+            const photo = document.getElementById('profile-photo');
+            if (!canvas || !hero || !photo) return;
 
             const ctx = canvas.getContext('2d');
-            let width, height, centerX, centerY;
+            let width, height, centerX, centerY, photoRadius;
 
             // Physics constants (scaled for visual effect)
-            const G = 800;                    // Gravitational constant (tweaked for visuals)
-            const centralMass = 5000;         // Mass of the "head" (attractive body)
-            const headRadius = 100;           // Visual radius of the head (collision boundary)
+            const G = 600;                    // Gravitational constant
+            const centralMass = 8000;         // Mass of the "head" (attractive body)
 
             // Particle system
             const particles = [];
-            const maxParticles = 12;
-            const trails = [];
-            const maxTrailLength = 60;
+            const maxParticles = 40;
+            const maxTrailLength = 100;
 
-            // Colors
+            // Multiple colors and sizes
             const colors = {
-                orbiting: ['#6366f1', '#8b5cf6', '#a855f7'],  // Indigo/purple for orbiting
-                escaping: ['#f59e0b', '#fbbf24', '#f97316'],  // Amber/orange for escaping
-                trail: 'rgba(99, 102, 241, 0.1)'
+                orbiting: [
+                    '#6366f1', '#8b5cf6', '#a855f7', '#c084fc',  // Purple/indigo
+                    '#818cf8', '#a5b4fc'                          // Lighter indigo
+                ],
+                escaping: [
+                    '#f59e0b', '#fbbf24', '#f97316', '#fb923c',  // Amber/orange
+                    '#fcd34d', '#fdba74'                          // Lighter amber
+                ]
             };
 
+            function getPhotoCenter() {
+                const heroRect = hero.getBoundingClientRect();
+                const photoRect = photo.getBoundingClientRect();
+                // Position relative to hero
+                centerX = photoRect.left - heroRect.left + photoRect.width / 2;
+                centerY = photoRect.top - heroRect.top + photoRect.height / 2;
+                photoRadius = photoRect.width / 2;
+            }
+
             function resize() {
-                const rect = canvas.getBoundingClientRect();
+                const heroRect = hero.getBoundingClientRect();
                 const dpr = window.devicePixelRatio || 1;
-                width = rect.width;
-                height = rect.height;
+                width = heroRect.width;
+                height = heroRect.height;
                 canvas.width = width * dpr;
                 canvas.height = height * dpr;
                 ctx.scale(dpr, dpr);
-                centerX = width / 2;
-                centerY = height / 2;
+                getPhotoCenter();
             }
 
             // Calculate escape velocity at distance r: v_escape = sqrt(2 * G * M / r)
@@ -639,136 +651,228 @@
                 }
 
                 reset() {
-                    // Spawn at random angle, at edge of canvas
-                    const angle = Math.random() * Math.PI * 2;
-                    const spawnRadius = Math.min(width, height) * 0.45;
+                    // Randomly choose: orbiting (65%) or comet (35%)
+                    const willBeComet = Math.random() < 0.35;
 
-                    this.x = centerX + Math.cos(angle) * spawnRadius;
-                    this.y = centerY + Math.sin(angle) * spawnRadius;
-
-                    // Calculate distance to center
-                    const dx = centerX - this.x;
-                    const dy = centerY - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    // Get escape and orbital velocities at this distance
-                    const vEscape = escapeVelocity(dist);
-                    const vOrbital = orbitalVelocity(dist);
-
-                    // Randomly choose: orbiting (70%) or escaping (30%)
-                    const willEscape = Math.random() < 0.3;
-
-                    let speed;
-                    if (willEscape) {
-                        // Speed >= escape velocity (will escape)
-                        speed = vEscape * (1.0 + Math.random() * 0.5);
+                    if (willBeComet) {
+                        // COMETS: Spawn from outside, streak across the hero
                         this.isEscaping = true;
+                        this.isComet = true;
                         this.color = colors.escaping[Math.floor(Math.random() * colors.escaping.length)];
-                        this.radius = 3 + Math.random() * 2;
-                    } else {
-                        // Speed < escape velocity (will orbit)
-                        speed = vOrbital * (0.7 + Math.random() * 0.5);
-                        this.isEscaping = false;
-                        this.color = colors.orbiting[Math.floor(Math.random() * colors.orbiting.length)];
-                        this.radius = 2 + Math.random() * 1.5;
-                    }
+                        this.radius = 2.5 + Math.random() * 3.5;
+                        this.trailLength = 70 + Math.floor(Math.random() * 60);
 
-                    // Velocity perpendicular to radius (for orbital motion) + slight radial component
-                    const perpAngle = angle + Math.PI / 2 + (Math.random() - 0.5) * 0.3;
-                    this.vx = Math.cos(perpAngle) * speed;
-                    this.vy = Math.sin(perpAngle) * speed;
+                        // Spawn from edge of hero
+                        const edge = Math.floor(Math.random() * 4);  // 0:top, 1:right, 2:bottom, 3:left
+                        const margin = 50;
+
+                        if (edge === 0) {  // Top
+                            this.x = Math.random() * width;
+                            this.y = -margin;
+                        } else if (edge === 1) {  // Right
+                            this.x = width + margin;
+                            this.y = Math.random() * height;
+                        } else if (edge === 2) {  // Bottom
+                            this.x = Math.random() * width;
+                            this.y = height + margin;
+                        } else {  // Left
+                            this.x = -margin;
+                            this.y = Math.random() * height;
+                        }
+
+                        // Direction: toward center area with some randomness
+                        const targetX = centerX + (Math.random() - 0.5) * width * 0.6;
+                        const targetY = centerY + (Math.random() - 0.5) * height * 0.4;
+                        const dx = targetX - this.x;
+                        const dy = targetY - this.y;
+                        const angle = Math.atan2(dy, dx);
+
+                        // Fast speed for streaking effect
+                        const speed = 250 + Math.random() * 200;
+                        this.vx = Math.cos(angle) * speed;
+                        this.vy = Math.sin(angle) * speed;
+
+                        this.maxAge = 500;
+
+                    } else {
+                        // ORBITING: Spawn from profile photo
+                        const launchAngle = Math.random() * Math.PI * 2;
+                        const spawnRadius = photoRadius + 10 + Math.random() * 20;
+
+                        this.x = centerX + Math.cos(launchAngle) * spawnRadius;
+                        this.y = centerY + Math.sin(launchAngle) * spawnRadius;
+
+                        this.isEscaping = false;
+                        this.isComet = false;
+                        this.color = colors.orbiting[Math.floor(Math.random() * colors.orbiting.length)];
+                        this.radius = 1.5 + Math.random() * 3;
+                        this.trailLength = 40;
+
+                        // Orbital velocity for circular-ish motion
+                        const vOrbital = orbitalVelocity(spawnRadius);
+                        const speed = vOrbital * (0.6 + Math.random() * 0.6);
+
+                        // Tangential launch for orbit
+                        const tangent = launchAngle + Math.PI / 2 * (Math.random() < 0.5 ? 1 : -1);
+                        const launchDir = tangent + (Math.random() - 0.5) * 0.4;
+
+                        this.vx = Math.cos(launchDir) * speed;
+                        this.vy = Math.sin(launchDir) * speed;
+
+                        this.maxAge = 1000;
+                    }
 
                     // Trail
                     this.trail = [];
                     this.age = 0;
-                    this.maxAge = willEscape ? 300 : 800;
+                    this.opacity = 1;
                 }
 
                 update(dt) {
-                    // Calculate gravitational force: F = G * M * m / r²
                     const dx = centerX - this.x;
                     const dy = centerY - this.y;
                     const distSq = dx * dx + dy * dy;
                     const dist = Math.sqrt(distSq);
 
-                    // Avoid division by zero and collision with center
-                    if (dist < headRadius * 0.4) {
-                        this.reset();
-                        return;
+                    if (this.isComet) {
+                        // COMETS: Minimal gravity, streak through space
+                        // Just a tiny gravitational nudge for realism
+                        const acc = G * centralMass / distSq * 0.05;  // 5% gravity effect
+                        const ax = (dx / dist) * acc;
+                        const ay = (dy / dist) * acc;
+                        this.vx += ax * dt;
+                        this.vy += ay * dt;
+                    } else {
+                        // ORBITING: Full gravitational effect
+                        // Reset if returned to center (collision with photo)
+                        if (dist < photoRadius * 0.5) {
+                            this.reset();
+                            return;
+                        }
+
+                        // Gravitational acceleration: a = G * M / r²
+                        const acc = G * centralMass / distSq;
+                        const ax = (dx / dist) * acc;
+                        const ay = (dy / dist) * acc;
+                        this.vx += ax * dt;
+                        this.vy += ay * dt;
                     }
-
-                    // Gravitational acceleration: a = G * M / r²
-                    const acc = G * centralMass / distSq;
-
-                    // Apply acceleration toward center
-                    const ax = (dx / dist) * acc;
-                    const ay = (dy / dist) * acc;
-
-                    this.vx += ax * dt;
-                    this.vy += ay * dt;
 
                     this.x += this.vx * dt;
                     this.y += this.vy * dt;
 
-                    // Store trail
-                    this.trail.push({ x: this.x, y: this.y, age: 0 });
-                    if (this.trail.length > maxTrailLength) {
+                    // Store trail (comets have longer trails)
+                    this.trail.push({ x: this.x, y: this.y });
+                    const maxLen = this.isComet ? this.trailLength : maxTrailLength;
+                    if (this.trail.length > maxLen) {
                         this.trail.shift();
                     }
 
-                    // Age trail points
-                    this.trail.forEach(p => p.age++);
-
                     this.age++;
 
-                    // Reset if too old or too far
-                    const maxDist = Math.max(width, height) * 0.8;
-                    if (this.age > this.maxAge || dist > maxDist) {
+                    // Fade out near end of life
+                    const fadeStart = this.maxAge * 0.7;
+                    if (this.age > fadeStart) {
+                        this.opacity = 1 - (this.age - fadeStart) / (this.maxAge - fadeStart);
+                    }
+
+                    // Reset if too old or too far outside viewport
+                    const maxDist = Math.max(width, height) * 1.2;
+                    if (this.age > this.maxAge || dist > maxDist ||
+                        this.x < -100 || this.x > width + 100 ||
+                        this.y < -100 || this.y > height + 100) {
                         this.reset();
                     }
                 }
 
                 draw() {
-                    // Draw trail
-                    if (this.trail.length > 1) {
-                        ctx.beginPath();
-                        ctx.moveTo(this.trail[0].x, this.trail[0].y);
-                        for (let i = 1; i < this.trail.length; i++) {
+                    if (this.opacity <= 0) return;
+
+                    if (this.isComet && this.trail.length > 2) {
+                        // COMET: Draw dramatic streaking tail with gradient
+                        const trailLen = this.trail.length;
+
+                        // Draw tail segments with fading opacity and width
+                        for (let i = 1; i < trailLen; i++) {
+                            const progress = i / trailLen;  // 0 at start, 1 at head
+                            const alpha = progress * progress * 0.6 * this.opacity;  // Exponential fade
+                            const width = this.radius * (0.2 + progress * 0.8);  // Thinner at tail
+
+                            ctx.beginPath();
+                            ctx.moveTo(this.trail[i - 1].x, this.trail[i - 1].y);
                             ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                            ctx.strokeStyle = this.color;
+                            ctx.lineWidth = width;
+                            ctx.lineCap = 'round';
+                            ctx.globalAlpha = alpha;
+                            ctx.stroke();
                         }
-                        ctx.strokeStyle = this.color;
-                        ctx.lineWidth = this.radius * 0.5;
-                        ctx.lineCap = 'round';
-                        ctx.globalAlpha = 0.3;
-                        ctx.stroke();
-                        ctx.globalAlpha = 1;
-                    }
 
-                    // Draw particle
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
+                        // Bright glowing head
+                        ctx.globalAlpha = this.opacity;
 
-                    // Glow effect for escaping particles
-                    if (this.isEscaping) {
+                        // Outer glow
                         ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.radius * 2.5, 0, Math.PI * 2);
+                        ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
                         ctx.fillStyle = this.color;
-                        ctx.globalAlpha = 0.2;
+                        ctx.globalAlpha = 0.15 * this.opacity;
                         ctx.fill();
-                        ctx.globalAlpha = 1;
+
+                        // Middle glow
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius * 1.8, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.globalAlpha = 0.3 * this.opacity;
+                        ctx.fill();
+
+                        // Bright core
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = '#ffffff';  // White hot center
+                        ctx.globalAlpha = 0.9 * this.opacity;
+                        ctx.fill();
+
+                        // Color overlay on core
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.globalAlpha = 0.6 * this.opacity;
+                        ctx.fill();
+
+                    } else {
+                        // Regular orbiting particle with simple trail
+                        if (this.trail.length > 1) {
+                            ctx.beginPath();
+                            ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                            for (let i = 1; i < this.trail.length; i++) {
+                                ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                            }
+                            ctx.strokeStyle = this.color;
+                            ctx.lineWidth = this.radius * 0.5;
+                            ctx.lineCap = 'round';
+                            ctx.globalAlpha = 0.2 * this.opacity;
+                            ctx.stroke();
+                        }
+
+                        // Draw particle
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.globalAlpha = this.opacity;
+                        ctx.fill();
                     }
+
+                    ctx.globalAlpha = 1;
                 }
             }
 
-            // Draw orbital guide rings (faint)
+            // Draw faint orbital rings around photo
             function drawOrbitalRings() {
-                ctx.strokeStyle = 'rgba(99, 102, 241, 0.1)';
+                ctx.strokeStyle = 'rgba(99, 102, 241, 0.08)';
                 ctx.lineWidth = 1;
-                ctx.setLineDash([4, 4]);
+                ctx.setLineDash([5, 5]);
 
-                [120, 160].forEach(r => {
+                [photoRadius * 1.8, photoRadius * 2.5, photoRadius * 3.5].forEach(r => {
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
                     ctx.stroke();
@@ -782,7 +886,7 @@
                 resize();
                 for (let i = 0; i < maxParticles; i++) {
                     const p = new Particle();
-                    p.age = Math.random() * 100; // Stagger initial ages
+                    p.age = Math.random() * 150; // Stagger initial ages
                     particles.push(p);
                 }
             }
@@ -790,8 +894,11 @@
             // Animation loop
             let lastTime = performance.now();
             function animate(currentTime) {
-                const dt = Math.min((currentTime - lastTime) / 1000, 0.05); // Cap delta time
+                const dt = Math.min((currentTime - lastTime) / 1000, 0.05);
                 lastTime = currentTime;
+
+                // Update photo center position (in case of scroll/resize)
+                getPhotoCenter();
 
                 // Clear canvas
                 ctx.clearRect(0, 0, width, height);
@@ -810,8 +917,11 @@
 
             // Start
             window.addEventListener('resize', resize);
-            init();
-            requestAnimationFrame(animate);
+            // Wait for layout to settle
+            setTimeout(() => {
+                init();
+                requestAnimationFrame(animate);
+            }, 100);
         })();
     </script>
 </body>
