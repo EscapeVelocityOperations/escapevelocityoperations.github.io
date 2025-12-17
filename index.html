@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escape Velocity Operations - Agents IA & Automatisation</title>
     <meta name="description" content="Conception et implémentation d'agents IA autonomes. 25 ans d'expérience en EdTech, voix et conformité. Atteignez votre vitesse de libération.">
+    <link rel="icon" type="image/png" href="/logo-evo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -651,8 +652,8 @@
                 }
 
                 reset() {
-                    // Randomly choose: orbiting (65%) or comet (35%)
-                    const willBeComet = Math.random() < 0.35;
+                    // Randomly choose: orbiting (80%) or comet (20%)
+                    const willBeComet = Math.random() < 0.20;
 
                     if (willBeComet) {
                         // COMETS: Spawn from outside, streak across the hero
@@ -687,8 +688,8 @@
                         const dy = targetY - this.y;
                         const angle = Math.atan2(dy, dx);
 
-                        // Fast speed for streaking effect
-                        const speed = 250 + Math.random() * 200;
+                        // Speed for streaking effect (slower = more visible gravity bending)
+                        const speed = 180 + Math.random() * 150;
                         this.vx = Math.cos(angle) * speed;
                         this.vy = Math.sin(angle) * speed;
 
@@ -735,9 +736,8 @@
                     const dist = Math.sqrt(distSq);
 
                     if (this.isComet) {
-                        // COMETS: Minimal gravity, streak through space
-                        // Just a tiny gravitational nudge for realism
-                        const acc = G * centralMass / distSq * 0.05;  // 5% gravity effect
+                        // COMETS: Significant gravity bends their trajectory
+                        const acc = G * centralMass / distSq * 0.4;  // 40% gravity for visible bending
                         const ax = (dx / dist) * acc;
                         const ay = (dy / dist) * acc;
                         this.vx += ax * dt;
