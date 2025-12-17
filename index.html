@@ -681,9 +681,9 @@
                             this.y = Math.random() * height;
                         }
 
-                        // Direction: aim to PASS BY the photo, not through it
+                        // Direction: aim to PASS CLOSE to the photo for strong gravitational interaction
                         // Offset target to the side of the photo
-                        const passDistance = photoRadius * 2 + Math.random() * photoRadius * 2;  // Pass 2-4 radii away
+                        const passDistance = photoRadius * 1.2 + Math.random() * photoRadius * 1.5;  // Pass 1.2-2.7 radii away (closer)
                         const side = Math.random() < 0.5 ? 1 : -1;  // Left or right of photo
 
                         // Calculate perpendicular offset from direct path
@@ -699,8 +699,8 @@
                         const dy = targetY - this.y;
                         const angle = Math.atan2(dy, dx);
 
-                        // Speed for streaking effect (slower = more visible gravity bending)
-                        const speed = 140 + Math.random() * 120;
+                        // Speed for streaking effect (slower = more gravity interaction)
+                        const speed = 100 + Math.random() * 80;
                         this.vx = Math.cos(angle) * speed;
                         this.vy = Math.sin(angle) * speed;
 
@@ -747,8 +747,8 @@
                     const dist = Math.sqrt(distSq);
 
                     if (this.isComet) {
-                        // COMETS: Strong gravity bends their trajectory significantly
-                        const acc = G * centralMass / distSq * 0.8;  // 80% gravity for dramatic bending
+                        // COMETS: Full gravity for dramatic trajectory bending around the photo
+                        const acc = G * centralMass / distSq * 1.2;  // 120% gravity for strong interaction
                         const ax = (dx / dist) * acc;
                         const ay = (dy / dist) * acc;
                         this.vx += ax * dt;
