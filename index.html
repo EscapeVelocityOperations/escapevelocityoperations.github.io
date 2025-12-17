@@ -689,7 +689,7 @@
                         const angle = Math.atan2(dy, dx);
 
                         // Speed for streaking effect (slower = more visible gravity bending)
-                        const speed = 180 + Math.random() * 150;
+                        const speed = 140 + Math.random() * 120;
                         this.vx = Math.cos(angle) * speed;
                         this.vy = Math.sin(angle) * speed;
 
@@ -736,8 +736,8 @@
                     const dist = Math.sqrt(distSq);
 
                     if (this.isComet) {
-                        // COMETS: Significant gravity bends their trajectory
-                        const acc = G * centralMass / distSq * 0.4;  // 40% gravity for visible bending
+                        // COMETS: Strong gravity bends their trajectory significantly
+                        const acc = G * centralMass / distSq * 0.8;  // 80% gravity for dramatic bending
                         const ax = (dx / dist) * acc;
                         const ay = (dy / dist) * acc;
                         this.vx += ax * dt;
