@@ -3,101 +3,710 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eric Cestari - Architecte Cloud Senior</title>
+    <title>Escape Velocity Operations - Agents IA & Automatisation</title>
+    <meta name="description" content="Conception et implémentation d'agents IA autonomes. 25 ans d'expérience en EdTech, voix et conformité. Atteignez votre vitesse de libération.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
                     colors: {
-                        'primary': '#1e3a8a',
-                        'secondary': '#059669',
+                        'primary': '#0f172a',
+                        'secondary': '#6366f1',
                         'accent': '#f59e0b',
                     }
                 }
             }
         }
     </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tech-tag {
+            transition: all 0.2s ease;
+        }
+        .tech-tag:hover {
+            background-color: #6366f1;
+            color: white;
+        }
+        /* Orbital spin animations */
+        .animate-spin-slow {
+            animation: spin 20s linear infinite;
+            transform-origin: center;
+        }
+        .animate-spin-slower {
+            animation: spin 30s linear infinite reverse;
+            transform-origin: center;
+        }
+        .animate-spin-slowest {
+            animation: spin 40s linear infinite;
+            transform-origin: center;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* Escape velocity particle animations */
+        .animate-escape-1 {
+            animation: escape-up 3s ease-in-out infinite;
+        }
+        .animate-escape-2 {
+            animation: escape-right 3.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        .animate-escape-3 {
+            animation: escape-down 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        .animate-escape-4 {
+            animation: escape-left 3.2s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+        @keyframes escape-up {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+            50% { transform: translateY(-30px) scale(1.3); opacity: 1; }
+        }
+        @keyframes escape-right {
+            0%, 100% { transform: translateX(0) scale(1); opacity: 0.8; }
+            50% { transform: translateX(30px) scale(1.3); opacity: 1; }
+        }
+        @keyframes escape-down {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+            50% { transform: translateY(30px) scale(1.3); opacity: 1; }
+        }
+        @keyframes escape-left {
+            0%, 100% { transform: translateX(0) scale(1); opacity: 0.8; }
+            50% { transform: translateX(-30px) scale(1.3); opacity: 1; }
+        }
+        /* Speed lines pulse */
+        .animate-speed-lines {
+            animation: pulse-lines 2s ease-in-out infinite;
+        }
+        @keyframes pulse-lines {
+            0%, 100% { opacity: 0.2; transform: scale(0.95); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <header class="bg-primary text-white py-6">
-        <div class="container mx-auto px-4 flex items-center">
-            <img src="/logo-evo.png" alt="Logo" class="w-16 h-16 mr-4" />
-            <div>
-                <h1 class="text-4xl font-bold">Eric Cestari</h1>
-                <p class="text-xl mt-2">Architecte Cloud Senior & Développeur Full Stack</p>
+<body class="bg-slate-50 font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3">
+                <img src="/logo-evo.png" alt="Escape Velocity Operations" class="w-10 h-10">
+                <span class="font-semibold text-primary">Escape Velocity Operations</span>
+            </a>
+            <div class="hidden md:flex gap-8">
+                <a href="#expertise" class="text-slate-600 hover:text-secondary transition-colors">Expertise</a>
+                <a href="#process" class="text-slate-600 hover:text-secondary transition-colors">Approche</a>
+                <a href="#projets" class="text-slate-600 hover:text-secondary transition-colors">Projets</a>
+                <a href="#parcours" class="text-slate-600 hover:text-secondary transition-colors">Parcours</a>
+                <a href="#contact" class="text-slate-600 hover:text-secondary transition-colors">Contact</a>
+            </div>
+            <a href="#contact" class="hidden md:inline-flex bg-secondary text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">
+                Discutons
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <p class="text-indigo-400 font-medium mb-4">Escape Velocity Operations</p>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                        Des <span class="gradient-text">agents autonomes</span> pour atteindre votre vitesse de libération
+                    </h1>
+                    <p class="text-xl text-slate-300 mb-8 leading-relaxed">
+                        Ce qui était impossible hier — trop coûteux, trop complexe — est désormais accessible à toutes les organisations.
+                        Nos agents IA automatisent ce que vous pensiez irréalisable.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projets" class="bg-accent text-primary font-semibold px-6 py-3 rounded-lg hover:bg-amber-400 transition-colors">
+                            Voir nos réalisations
+                        </a>
+                        <a href="#contact" class="border border-slate-500 text-white px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
+                            Nous contacter
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="relative w-80 h-80 md:w-96 md:h-96">
+                        <!-- Animated SVG Background - Escape Velocity -->
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 400" fill="none" style="overflow: visible;">
+                            <!-- Gravity well / Planet representation -->
+                            <circle cx="200" cy="200" r="95" stroke="url(#orbit-gradient)" stroke-width="2" opacity="0.4"/>
+
+                            <!-- Orbital paths (what you're escaping from) -->
+                            <ellipse cx="200" cy="200" rx="140" ry="140" stroke="#6366f1" stroke-width="1" opacity="0.2" stroke-dasharray="8 4" class="animate-spin-slow"/>
+                            <ellipse cx="200" cy="200" rx="170" ry="170" stroke="#8b5cf6" stroke-width="1" opacity="0.15" stroke-dasharray="12 6" class="animate-spin-slower"/>
+
+                            <!-- Escape trajectory 1 - breaking free upward-right -->
+                            <g class="animate-escape-trajectory-1">
+                                <path d="M200 200 Q 280 120, 350 20" stroke="url(#escape-gradient-1)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+                                <circle cx="350" cy="20" r="6" fill="#f59e0b">
+                                    <animate attributeName="r" values="4;8;4" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="350" cy="20" r="12" fill="#f59e0b" opacity="0.3">
+                                    <animate attributeName="r" values="8;16;8" dur="1.5s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.3;0.1;0.3" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+
+                            <!-- Escape trajectory 2 - breaking free downward-left -->
+                            <g class="animate-escape-trajectory-2">
+                                <path d="M200 200 Q 100 280, 30 380" stroke="url(#escape-gradient-2)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+                                <circle cx="30" cy="380" r="4" fill="#a855f7">
+                                    <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+
+                            <!-- Escape trajectory 3 - breaking free right -->
+                            <g class="animate-escape-trajectory-3">
+                                <path d="M200 200 Q 300 180, 390 150" stroke="url(#escape-gradient-3)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+                                <circle cx="390" cy="150" r="3" fill="#6366f1">
+                                    <animate attributeName="r" values="2;5;2" dur="1.8s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+
+                            <!-- Speed particles along trajectories -->
+                            <circle r="2" fill="#f59e0b" opacity="0.8">
+                                <animateMotion dur="2s" repeatCount="indefinite">
+                                    <mpath href="#trajectory-path-1"/>
+                                </animateMotion>
+                            </circle>
+                            <circle r="1.5" fill="#a855f7" opacity="0.7">
+                                <animateMotion dur="2.5s" repeatCount="indefinite">
+                                    <mpath href="#trajectory-path-2"/>
+                                </animateMotion>
+                            </circle>
+
+                            <!-- Hidden paths for motion -->
+                            <path id="trajectory-path-1" d="M200 200 Q 280 120, 350 20" fill="none"/>
+                            <path id="trajectory-path-2" d="M200 200 Q 100 280, 30 380" fill="none"/>
+
+                            <!-- Gradients -->
+                            <defs>
+                                <linearGradient id="orbit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#6366f1"/>
+                                    <stop offset="100%" stop-color="#a855f7"/>
+                                </linearGradient>
+                                <linearGradient id="escape-gradient-1" x1="0%" y1="100%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#6366f1" stop-opacity="0.2"/>
+                                    <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.8"/>
+                                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="1"/>
+                                </linearGradient>
+                                <linearGradient id="escape-gradient-2" x1="100%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.2"/>
+                                    <stop offset="100%" stop-color="#a855f7" stop-opacity="0.8"/>
+                                </linearGradient>
+                                <linearGradient id="escape-gradient-3" x1="0%" y1="50%" x2="100%" y2="50%">
+                                    <stop offset="0%" stop-color="#6366f1" stop-opacity="0.2"/>
+                                    <stop offset="100%" stop-color="#6366f1" stop-opacity="0.7"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="absolute w-72 h-72 md:w-80 md:h-80 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-3xl opacity-20"></div>
+                            <img src="/profil.jpeg" alt="Eric Cestari" class="relative w-56 h-56 md:w-64 md:h-64 rounded-full object-cover border-4 border-indigo-500/30 shadow-2xl z-10">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-12">
-            <h2 class="text-2xl font-semibold mb-4 text-primary">À propos</h2>
-            <p class="text-gray-700">
-                Depuis 2000, je développe des applications web et distribuées, en apportant mon expertise à chaque étape du cycle de vie d'un service. Ma passion est de résoudre des problèmes complexes avec des solutions élégantes et pragmatiques dans des environnements technologiques variés.
-            </p>
-        </section>
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Notre expertise</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Conception, implémentation et déploiement d'agents IA en production — pour vous faire décoller.
+                </p>
+            </div>
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-semibold mb-4 text-primary">Compétences et Réalisations</h2>
-            
-            <div class="space-y-6">
-                <div>
-                    <h3 class="text-xl font-medium text-secondary">Architecture Cloud et DevOps</h3>
-                    <ul class="list-disc list-inside text-gray-700 mt-2">
-                        <li>Conception et mise en œuvre d'architectures sur AWS, GCP, et Azure</li>
-                        <li>Développement de solutions serverless et orchestration Kubernetes</li>
-                        <li>Implémentation de pipelines CI/CD dans des environnements critiques</li>
-                        <li>Exemple : Mise en place d'une infrastructure CI/CD pour un système d'appels d'urgence à haute disponibilité</li>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Pilier 1 -->
+                <div class="bg-slate-50 rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Conception d'Agents</h3>
+                    <p class="text-slate-600 mb-4">
+                        Architecture d'agents autonomes et systèmes multi-agents. Orchestration, communication inter-agents, et stratégies de récupération d'erreur.
+                    </p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Agents autonomes
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Systèmes multi-agents
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Intégration LLM
+                        </li>
                     </ul>
                 </div>
-                
-                <div>
-                    <h3 class="text-xl font-medium text-secondary">Développement Full Stack</h3>
-                    <ul class="list-disc list-inside text-gray-700 mt-2">
-                        <li>Création d'applications web et mobiles performantes</li>
-                        <li>Expertise en langages et frameworks modernes (JavaScript, Python, React, etc.)</li>
-                        <li>Optimisation pour le trafic élevé et la faible latence</li>
-                        <li>Exemple : Développement d'un service de streaming vidéo sécurisé avec fort niveau de confidentialité</li>
+
+                <!-- Pilier 2 -->
+                <div class="bg-slate-50 rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Automatisation Intelligente</h3>
+                    <p class="text-slate-600 mb-4">
+                        Workflows automatisés de bout en bout. Pipelines TDD, génération de code, transformation de tickets en pull requests.
+                    </p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Pipelines CI/CD intelligents
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Génération de code TDD
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Orchestration n8n
+                        </li>
                     </ul>
                 </div>
-                
-                <div>
-                    <h3 class="text-xl font-medium text-secondary">Innovation EdTech</h3>
-                    <ul class="list-disc list-inside text-gray-700 mt-2">
-                        <li>Conception de solutions pour le secteur de l'éducation</li>
-                        <li>Développement de fédérateurs d'identité et d'entrepôts de données</li>
-                        <li>Exemple : Création de ProxyNinja, un fédérateur d'identité pour l'éducation</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-medium text-secondary">Leadership Technique</h3>
-                    <ul class="list-disc list-inside text-gray-700 mt-2">
-                        <li>Animation d'équipes de développement</li>
-                        <li>Conduite de tech designs et maintien à l'état de l'art</li>
-                        <li>Formation et mentorat (AWS, Cloud Credentials Council)</li>
-                        <li>Exemple : Animation de meetups et conférences internationales sur les technologies cloud</li>
+
+                <!-- Pilier 3 -->
+                <div class="bg-slate-50 rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Éducation & Voix</h3>
+                    <p class="text-slate-600 mb-4">
+                        Expertise approfondie des secteurs EdTech et voix. Conformité française (GAR, RGPD, RGAA), transcription, et agents vocaux intelligents.
+                    </p>
+                    <ul class="text-sm text-slate-500 space-y-2">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Conformité GAR/RGPD/RGAA
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Transcription & voice AI
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Métadonnées SCOLOM-fr
+                        </li>
                     </ul>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section>
-            <h2 class="text-2xl font-semibold mb-4 text-primary">Collaborons ensemble</h2>
-            <p class="text-gray-700 mb-4">
-                Que vous ayez besoin d'expertise en architecture cloud, de développement d'applications innovantes, ou de leadership technique pour votre équipe, je suis prêt à relever de nouveaux défis. Contactez-moi pour discuter de votre projet et explorer comment je peux contribuer à son succès.
-            </p>
-            <a href="mailto:eric@escapevelocity.fr" class="bg-accent text-white py-2 px-4 rounded hover:bg-accent-dark transition duration-300">
-                Contactez-moi
-            </a>
-        </section>
-    </main>
+    <!-- Process Section -->
+    <section id="process" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Notre approche</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    De la première discussion à la mise en production — un processus éprouvé pour transformer vos idées en agents autonomes.
+                </p>
+            </div>
 
-    <footer class="bg-primary text-white py-4 mt-12">
+            <div class="relative">
+                <!-- Connection line -->
+                <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-indigo-200 via-purple-300 to-amber-200 -translate-y-1/2 z-0"></div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-2xl font-bold text-secondary">1</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">Découverte</h3>
+                        <p class="text-slate-600 text-sm">
+                            On échange sur vos processus actuels, vos frustrations, et vos objectifs. On identifie ensemble les tâches à fort potentiel d'automatisation.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 uppercase tracking-wide">Durée typique</p>
+                            <p class="text-sm text-slate-600 font-medium">1-2 sessions</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-2xl font-bold text-purple-600">2</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">Conception</h3>
+                        <p class="text-slate-600 text-sm">
+                            On définit l'architecture de vos agents : quelles capacités, quelles interactions, quelles garanties. Vous validez avant qu'une seule ligne ne soit écrite.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 uppercase tracking-wide">Livrable</p>
+                            <p class="text-sm text-slate-600 font-medium">Spécification validée</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-2xl font-bold text-violet-600">3</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">Construction</h3>
+                        <p class="text-slate-600 text-sm">
+                            Développement itératif avec démos régulières. Vous voyez vos agents prendre forme et pouvez ajuster le tir à chaque étape.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 uppercase tracking-wide">Méthode</p>
+                            <p class="text-sm text-slate-600 font-medium">Itérations courtes</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-2xl font-bold text-amber-600">4</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">Décollage</h3>
+                        <p class="text-slate-600 text-sm">
+                            Mise en production, formation de vos équipes, et accompagnement. Vos agents sont autonomes, mais on reste disponibles pour les faire évoluer.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100">
+                            <p class="text-xs text-slate-400 uppercase tracking-wide">Résultat</p>
+                            <p class="text-sm text-slate-600 font-medium">Agents en production</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Possibilités Section -->
+    <section class="py-16 bg-gradient-to-r from-indigo-600 to-purple-600">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Ce que nos agents peuvent automatiser</h2>
+                <p class="text-indigo-100 max-w-2xl mx-auto">
+                    Hier réservé aux grandes entreprises. Aujourd'hui accessible à tous.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Audit de conformité</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Génération de documents</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Transcription intelligente</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Extraction de données</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Qualification de leads</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Support client 24/7</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Veille concurrentielle</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Onboarding automatisé</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Analyse de contrats</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Rédaction de specs</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Tests automatisés</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center hover:bg-white/20 transition-colors">
+                    <p class="text-white font-medium text-sm">Reporting temps réel</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets Section -->
+    <section id="projets" class="py-24 bg-slate-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Réalisations</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Des agents IA en production qui résolvent des problèmes concrets pour nos clients.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Projet 1: Notice Maker -->
+                <div class="bg-white rounded-2xl overflow-hidden card-hover shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-primary">Notice Maker</h3>
+                                <p class="text-sm text-slate-500">Gar Ninja</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 mb-6">
+                            Agent IA générant des notices SCOLOM-fr conformes GAR en quelques minutes au lieu de plusieurs heures. Extraction automatique de métadonnées depuis URLs et PDFs.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Mistral AI</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">FastAPI</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">AWS Lambda</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Vue 3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 2: GAR-Conformité -->
+                <div class="bg-white rounded-2xl overflow-hidden card-hover shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-primary">Agent de Conformité</h3>
+                                <p class="text-sm text-slate-500">Gar Ninja</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 mb-6">
+                            Agent autonome auditant la conformité RGPD, RGAA et GAR des ressources éducatives. Navigation automatique, détection de trackers, et génération de rapports détaillés.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Claude Code</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Playwright</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Auto-learning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projet 3: Linear → PR -->
+                <div class="bg-white rounded-2xl overflow-hidden card-hover shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-primary">Ticket → PR Automatique</h3>
+                                <p class="text-sm text-slate-500">Voxist</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 mb-6">
+                            Pipeline multi-agents transformant des tickets Linear en pull requests complètes. Spec, tests, implémentation, sécurité et documentation générés automatiquement en TDD.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Multi-agents</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">n8n</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">TDD</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 text-slate-600 text-sm rounded-full cursor-default">Claude Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parcours Section -->
+    <section id="parcours" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">25 ans à traverser les industries</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Fondée par Eric Cestari — une expertise forgée dans des secteurs aussi variés que la musique, l'immobilier, la billetterie, le conseil, la gestion de données et l'éducation.
+                </p>
+            </div>
+
+            <!-- Industries -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Musique & Audio</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Immobilier</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Billetterie</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Conseil</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Data Management</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">EdTech</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Télécom</span>
+                <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm">Voix & Transcription</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- Crédibilité 1 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">RFC IETF</h3>
+                    <p class="text-sm text-slate-600">Co-auteur RFC 7395<br>XMPP over WebSocket</p>
+                </div>
+
+                <!-- Crédibilité 2 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Ohm Studio</h3>
+                    <p class="text-sm text-slate-600">Co-créateur du 1er DAW<br>collaboratif en ligne</p>
+                </div>
+
+                <!-- Crédibilité 3 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Prometheus-X</h3>
+                    <p class="text-sm text-slate-600">Cofondateur<br>Data spaces éducation</p>
+                </div>
+
+                <!-- Crédibilité 4 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Certifications</h3>
+                    <p class="text-sm text-slate-600">NVIDIA LLM<br>AWS Solutions Architect</p>
+                </div>
+
+                <!-- Crédibilité 5 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Open Source</h3>
+                    <p class="text-sm text-slate-600">Contributeur actif<br>GitHub</p>
+                </div>
+            </div>
+
+            <!-- Liens -->
+            <div class="flex flex-wrap justify-center gap-6 mt-12">
+                <a href="https://www.linkedin.com/in/ecestari/" target="_blank" rel="noopener" class="flex items-center gap-2 text-slate-600 hover:text-secondary transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/cstar" target="_blank" rel="noopener" class="flex items-center gap-2 text-slate-600 hover:text-secondary transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://prometheus-x.org/" target="_blank" rel="noopener" class="flex items-center gap-2 text-slate-600 hover:text-secondary transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    Prometheus-X
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2025 Eric Cestari. Tous droits réservés.</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Prêt à décoller ?</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto mb-8">
+                Processus à automatiser ? Agent à concevoir ? Discutons de comment atteindre ensemble votre vitesse de libération.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="mailto:eric@escapevelocity.fr" class="inline-flex items-center gap-2 bg-accent text-primary font-semibold px-8 py-4 rounded-lg hover:bg-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    eric@escapevelocity.fr
+                </a>
+                <a href="https://www.linkedin.com/in/ecestari/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-slate-500 text-white px-8 py-4 rounded-lg hover:bg-white/10 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 py-8 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <img src="/logo-evo.png" alt="Escape Velocity Operations" class="w-8 h-8">
+                    <span class="text-slate-400">Escape Velocity Operations</span>
+                </div>
+                <p class="text-slate-500 text-sm">&copy; 2025 Eric Cestari. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
