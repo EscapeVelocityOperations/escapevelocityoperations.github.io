@@ -1,0 +1,84 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1770374168836,
+  "projectRoot": "/Users/cstar/Développements/escapevelocityoperations.github.io",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "css": {
+      "path": "css",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1770374168831,
+      "keyFiles": [
+        "app.b5297f5b.css",
+        "chunk-ebdaf33a.79c177b7.css"
+      ]
+    },
+    "fonts": {
+      "path": "fonts",
+      "purpose": null,
+      "fileCount": 8,
+      "lastAccessed": 1770374168832,
+      "keyFiles": [
+        "fontawesome-webfont.674f50d2.eot",
+        "fontawesome-webfont.af7ae505.woff2",
+        "fontawesome-webfont.b06871f2.ttf",
+        "fontawesome-webfont.fee66e71.woff",
+        "nucleo-icons.2569aaea.woff"
+      ]
+    },
+    "img": {
+      "path": "img",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1770374168832,
+      "keyFiles": [
+        "fontawesome-webfont.912ec66d.svg",
+        "nucleo-icons.0b8a30b1.svg"
+      ]
+    },
+    "js": {
+      "path": "js",
+      "purpose": null,
+      "fileCount": 8,
+      "lastAccessed": 1770374168832,
+      "keyFiles": [
+        "app.150491dc.js",
+        "app.150491dc.js.map",
+        "chunk-52e4de86.8da96fb9.js",
+        "chunk-52e4de86.8da96fb9.js.map",
+        "chunk-ebdaf33a.db729e95.js"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}
